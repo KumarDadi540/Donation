@@ -1,0 +1,23 @@
+nav{
+    margin-bottom: 20px;
+    border-bottom: 5px solid rgb(228, 222, 222);
+    // background-color: #0FA497 !important;
+}
+nav {
+    background: #33cccc;
+    border: 1px solid #33cccc;
+    color: #fff;
+    background: #0099cc;
+    background: -moz-linear-gradient(-45deg, #0099cc 0%, #33cccc 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, #0099cc), color-stop(100%, #33cccc));
+    background: -webkit-linear-gradient(-45deg, #0099cc 0%, #33cccc 100%);
+    background: -o-linear-gradient(-45deg, #0099cc 0%, #33cccc 100%);
+    background: -ms-linear-gradient(-45deg, #0099cc 0%, #33cccc 100%);
+    background: -webkit-linear-gradient(315deg, #0099cc 0%, #33cccc 100%);
+    background: -o-linear-gradient(315deg, #0099cc 0%, #33cccc 100%);
+    background: linear-gradient(135deg, #0099cc 0%, #33cccc 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0099cc', endColorstr='#33cccc', GradientType=1 ); }
+// .navbar-brand{
+    // color: #E25B1B;
+    // color: #0FA497;
+// }

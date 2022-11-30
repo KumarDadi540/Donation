@@ -1,0 +1,271 @@
+<div class="container-fluid" style="padding-left:15px;padding-right:15px;">
+
+    <div class="row">
+      <div class="d-flex justify-content-center">
+        <h1><b>Report</b></h1>
+      </div>
+    </div>
+
+    <div class="row">
+        
+        <div class="form-group col-sm-1">
+            <label for="fromdate">From&nbsp;Date</label>
+            <input type="date" class="form-control" id="fromdate" required [(ngModel)]="head.fromdate"
+              name="fromdate" #txt1 autofocus>
+          </div>
+    
+          <div class="form-group col-sm-1">
+            <label for="todate">From&nbsp;Date</label>
+            <input type="date" class="form-control" id="todate" [(ngModel)]="head.todate" name="todate">
+          </div>
+
+          <div class="form-group col-sm-2">
+            <label for="surname">Sur&nbsp;Name</label>
+            <!-- <input type="text" class="form-control" id="surname" [(ngModel)]="head.surname" name="surname"> -->
+            <input autocomplete="off" type="text" class='select-option form-control' required name="surname" maxlength="50"
+                [(ngModel)]="head.surname" #surname="ngModel" id="surname" list="Surnames" placeholder="Select Surname">
+            <datalist id="Surnames">
+                <option class='option' *ngFor="let s of Surnames" [ngValue]="s">{{s.Surname}}</option>
+            </datalist>
+        </div>
+        
+        <!-- <div class="form-group col-sm-1">
+            <label for="nickname">Nick&nbsp;Name</label>
+            <input type="text" class="form-control" id="nickname" [(ngModel)]="head.nickname" name="nickname">
+        </div> -->
+
+        <div class="form-group col-sm-2">
+            <label for="area">Area</label>
+            <!-- <input type="text" class="form-control" id="area" [(ngModel)]="head.area" name="area"> -->
+            <input autocomplete="off" type="text" class='select-option form-control' required name="area" maxlength="50"
+                [(ngModel)]="model.area" #area="ngModel" id="area" list="AreasData" placeholder="Select area">
+                <datalist id="AreasData">
+                <option class='option' *ngFor="let s of AreasData" [ngValue]="s">{{s.area}}</option>
+                </datalist>
+        </div>
+        
+        <div class="form-group col-sm-2">
+            <label for="city">City</label>
+            <!-- <input type="text" class="form-control" id="city" [(ngModel)]="head.city" name="city"> -->
+            <input autocomplete="off" type="text" class='select-option form-control' required name="area" maxlength="50"
+                [(ngModel)]="model.city" #city="ngModel" id="city" list="CityData" placeholder="Select city">
+                <datalist id="CityData">
+                <option class='option' *ngFor="let s of CityData" [ngValue]="s">{{s.city}}</option>
+                </datalist>
+        </div>
+        
+        <div class="form-group col-sm-2">
+            <label for="state">State</label>
+            <!-- <input type="text" class="form-control" id="state" [(ngModel)]="head.state" name="state"> -->
+            <input autocomplete="off" type="text" class='select-option form-control' required name="state" maxlength="50"
+                [(ngModel)]="model.state" #state="ngModel" id="state" list="StateData" placeholder="Select state">
+                <datalist id="StateData">
+                <option class='option' *ngFor="let s of StateData" [ngValue]="s">{{s.state}}</option>
+                </datalist>
+        </div>
+
+        <div class="form-group col-sm-1">
+            <button type="button" class="form-control btn-green mt-4" (click)="getData()">Get&nbsp;Data</button>
+        </div>
+        
+    </div>
+    <!-- <div class="row  d-flex justify-content-center">
+        <div class="form-group col-sm-2">
+            <button type="button" class="form-control btn-green mt-4" (click)="getData()">Get&nbsp;Data</button>
+        </div>
+    </div> -->
+
+    <div class="row mt-4">
+        <div class="col-sm-6">
+            <div class="" *ngIf="DoData.length>0">
+                <input type="text" class="form-control" [(ngModel)]="searchText" placeholder="Search Here..."
+                class="search_style">
+                <button type="submit" class="input_btn">Search</button>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="float-end" *ngIf="DoData.length>0">
+                <button type="button" class="btn btn-success" (click)="printreport()" style="letter-spacing:1px;">Print</button>
+                <button  type="button" style="margin:10px;" class="btn btn-green" (click)="ExportTo()">Export</button>
+                <!-- this.DoData -->
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        
+    <div class="row">
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <div class="checkboxxs">
+                <div class="checkbox">
+                    <label>
+                        <input [(ngModel)]="sel.name" type="checkbox" data-toggle="toggle" (change)="selectCheckBox($event,1)">&nbsp;<span>Name</span>
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input [(ngModel)]="sel.surname" type="checkbox" data-toggle="toggle" (change)="selectCheckBox($event,2)">&nbsp;<span>Sur&nbsp;Name</span>
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input [(ngModel)]="sel.gotra" type="checkbox" data-toggle="toggle" (change)="selectCheckBox($event,10)">&nbsp;Gotram
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input [(ngModel)]="sel.nickname" type="checkbox" data-toggle="toggle" (change)="selectCheckBox($event,3)">&nbsp;Nick&nbsp;Name
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input [(ngModel)]="sel.bloodgroup" type="checkbox" data-toggle="toggle" (change)="selectCheckBox($event,4)">&nbsp;Blood&nbsp;Group
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input [(ngModel)]="sel.mobileno" type="checkbox" data-toggle="toggle" (change)="selectCheckBox($event,4)">&nbsp;Mobile no
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input [(ngModel)]="sel.address1" type="checkbox" data-toggle="toggle" (change)="selectCheckBox($event,5)">&nbsp;Address1
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input [(ngModel)]="sel.address2" type="checkbox" data-toggle="toggle" (change)="selectCheckBox($event,6)">&nbsp;Address2
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input [(ngModel)]="sel.area" type="checkbox" data-toggle="toggle" (change)="selectCheckBox($event,7)">&nbsp;Area
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input [(ngModel)]="sel.city" type="checkbox" data-toggle="toggle" (change)="selectCheckBox($event,8)">&nbsp;City
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input [(ngModel)]="sel.state" type="checkbox" data-toggle="toggle" (change)="selectCheckBox($event,9)">&nbsp;State
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input [(ngModel)]="sel.pincode" type="checkbox" data-toggle="toggle" (change)="selectCheckBox($event,10)">&nbsp;Pincode
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input [(ngModel)]="sel.native" type="checkbox" data-toggle="toggle" (change)="selectCheckBox($event,10)">&nbsp;Native
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input [(ngModel)]="sel.district" type="checkbox" data-toggle="toggle" (change)="selectCheckBox($event,10)">&nbsp;District
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input [(ngModel)]="sel.email" type="checkbox" data-toggle="toggle" (change)="selectCheckBox($event,11)">&nbsp;Email
+                    </label>
+                </div>
+                <!-- <div class="checkbox">
+                    <label>
+                        <input [(ngModel)]="sel.amount" type="checkbox" data-toggle="toggle" (change)="selectCheckBox($event,12)">&nbsp;Amount
+                    </label>
+                </div> -->
+                <div class="checkbox">
+                    <label>
+                        <input [(ngModel)]="sel.agentmobileno" type="checkbox" data-toggle="toggle" (change)="selectCheckBox($event,13)">&nbsp;Agent&nbsp;No
+                    </label>
+                </div>
+            </div>
+                
+        </div>
+        <div class="col-sm-10 col-md-10 col-lg-10 scrl" id="printSectionId" #TABLE>
+            <div class="row">
+                <div class="d-flex justify-content-center busname">
+                    <h1><b>Report</b></h1>
+                </div>
+            </div>
+            
+            
+
+            <!-- *ngIf="DoData.length>0" -->
+            <div>
+                <div *ngIf="(DoData | filter :searchText) as DoData">
+                <div class="row pt-5">
+                    <div class="row" *ngIf="DoData.length>0">
+                        <div style="text-align: end;">
+                            <h4>Total&nbsp;Count:&nbsp;{{ DoData.length }}</h4>
+                        </div>
+                    </div>
+                    <div class="table-responsive-sm">
+                        
+                        <table id="table" class="table table-bordered table-striped" #table>
+                            <tr class="thcolor">
+                                <th class="text-center">S.No</th>
+                                <th class="text-center" *ngIf="sel.name">Name</th>
+                                <th class="text-center" *ngIf="sel.surname">Sur&nbsp;Name</th>
+                                <th class="text-center" *ngIf="sel.gotra">Gotram</th>
+                                <th class="text-center" *ngIf="sel.nickname">Nick&nbsp;Name</th>
+                                <th class="text-center" *ngIf="sel.bloodgroup">BloodGroup</th>
+                                <th class="text-center" *ngIf="sel.mobileno">Mobile&nbsp;no</th>
+                                <th class="text-center" *ngIf="sel.email">Email</th>
+                                <th class="text-center" *ngIf="sel.address1">Address1</th>
+                                <th class="text-center" *ngIf="sel.address2">Address2</th>
+                                <th class="text-center" *ngIf="sel.area">Area</th>
+                                <th class="text-center" *ngIf="sel.city">City</th>
+                                <th class="text-center" *ngIf="sel.state">State</th>
+                                <th class="text-center" *ngIf="sel.pincode">Pincode</th>
+                                <th class="text-center" *ngIf="sel.native">Native</th>
+                                <th class="text-center" *ngIf="sel.district">District</th>
+                                <!-- <th class="text-center" *ngIf="sel.amount">Amount</th> -->
+                                <th class="text-center" *ngIf="sel.agentmobileno">Agent&nbsp;No</th>
+                                <th class="text-center">Date</th>
+                                <!-- <th class="text-center">Options</th> -->
+                            </tr>
+                            <tr *ngFor="let data of DoData | paginate: { itemsPerPage: 10, currentPage: p }; let i=index">
+                                <td>{{ 10*(p-1)+(i+1) }}</td>
+                                <td  class="text-left" *ngIf="sel.name">{{ data.Name }}</td>
+                                <td  class="text-left" *ngIf="sel.surname">{{ data.Surname }}</td>
+                                <td  class="text-left" *ngIf="sel.gotra">{{ data.gotra }}</td>
+                                <td  class="text-left" *ngIf="sel.nickname">{{ data.nickname }}</td>
+                                <td  class="text-center" *ngIf="sel.bloodgroup">{{ data.bloodgroup }}</td>
+                                <td  class="text-center" *ngIf="sel.mobileno">{{ data.Mobile }}</td>
+                                <td  class="text-left" *ngIf="sel.email">{{ data.Email }}</td>
+                                <td  class="text-left" *ngIf="sel.address1">{{ data.Address1 }}</td>
+                                <td  class="text-left" *ngIf="sel.address2">{{ data.Address2 }}</td>
+                                <td  class="text-center" *ngIf="sel.area">{{ data.area }}</td>
+                                <td  class="text-center" *ngIf="sel.city">{{ data.city }}</td>
+                                <td  class="text-center" *ngIf="sel.state">{{ data.state }}</td>
+                                <td  class="text-center" *ngIf="sel.pincode">{{ data.pincode }}</td>
+                                <td  class="text-center" *ngIf="sel.native">{{ data.native }}</td>
+                                <td  class="text-center" *ngIf="sel.district">{{ data.district }}</td>
+                                <!-- <td  class="text-right" *ngIf="sel.amount">{{ data.Amount }}</td> -->
+                                <td  class="text-center" *ngIf="sel.agentmobileno">{{ data.Agentmobile }}</td>
+                                <td  class="text-center">{{ data.date  | date:'dd-MM-yyyy' }}</td>
+                                <!-- <td class="text-center">
+                                    <button class="btn btn-sm btn-default">
+                                        <i class="fa fa-trash" style="font-size: 18px;color: #20978c;" (click)="removerow(i,data)"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-light">
+                                        <i class="fa fa-pencil" style="font-size: 18px;color: #20978c;" (click)="Editrow(data)"></i>
+                                    </button>
+                                </td> -->
+                            </tr>
+                            </table>
+                      </div>
+                    <pagination-controls (pageChange)="p = $event" class="page"></pagination-controls>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+  </div>

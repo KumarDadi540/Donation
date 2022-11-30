@@ -1,0 +1,656 @@
+<div class="container">
+
+    <div class="form_bg">
+        <!-- <div class="row pt-2 pb-5">
+            <div class="d-flex justify-content-center">
+              <h1><b>Donation&nbsp;Form</b></h1>
+              <h1><b>Subscribers</b></h1>
+            </div>
+          </div> -->
+          <form>
+            <div class="row">
+              
+              <div class="row">
+                <div class="form-group col-sm-3">
+                    <label for="mobileno">Mobile&nbsp;No.</label>
+                    <input type="text" class="form-control" id="mobileno" [(ngModel)]="model.mobileno" name="mobileno" placeholder="Enter Mobile number" (keypress)="keynumber($event)" autocomplete="off" 
+                    maxlength="12" #mobtxt>
+                </div>
+                <div class="form-group col-sm-3">
+                    <button type="button" class="form-control btn-green mt-4" (click)="mobChange(model)">Send&nbsp;OTP</button>
+                    <!-- [disabled]="disableVerifybtn==true" -->
+                </div>
+                  
+                <div class="form-group col-sm-3" *ngIf="disableOtp">
+                    <label for="otp">OTP</label>
+                    <input type="text" class="form-control" id="otp" [(ngModel)]="model.otp" name="otp" (keypress)="keynumber($event)" maxlength="8" autocomplete="off">
+                </div>
+
+                <div class="form-group col-sm-3" *ngIf="disableOtp">
+                  <button type="button" class="form-control btn btn-danger mt-4" (click)="Verify()" [disabled]="disableVerifybtn==true">Verify</button>
+                </div>
+
+              </div>
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------<-- Main Member --<--------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+              <!-- verified -->
+              <!-- Primary Member -->
+              <!-- *ngIf="detailform == true" -->
+              <div class="row" *ngIf="detailform == true">
+                <div class="form2">
+
+                    
+                    <div class="row" *ngIf="relationList.length>0">
+                        <div class="form-group col-sm-12">
+                            <div class="table-responsive-sm">
+                        
+                                <table id="table" class="table table-bordered table-striped" #table>
+                                    <tr class="thcolor">
+                                        <!-- <th class="text-center">S.No</th> -->
+                                        <th class="text-center">Name</th>
+                                        <th class="text-center">Sur&nbsp;Name</th>
+                                        <th class="text-center">Relation</th>
+                                        <!-- <th class="text-center">Nick&nbsp;Name</th> -->
+                                        <th class="text-center">Options</th>
+                                    </tr>
+                                    <tr *ngFor="let data of relationList; let i=index">
+                                        <!-- <td>{{ 10*(p-1)+(i+1) }}</td> -->
+                                        <td  class="text-center">{{ data.Name }}</td>
+                                        <td  class="text-center">{{ data.Surname }}</td>
+                                        <td  class="text-center">{{ data.relationship }}</td>
+                                        <!-- <td  class="text-left">{{ data.nickname }}</td> -->
+                                        <td class="text-center">
+                                            <!-- <button class="btn btn-sm btn-default">
+                                                <i class="fa fa-trash" style="font-size: 18px;color: #20978c;" (click)="removerow(i,data)"></i>
+                                            </button> -->
+                                            <button class="btn btn-sm btn-light">
+                                                <i class="fa fa-pencil" style="font-size: 18px;color: #20978c;" (click)="Editrelation(data)"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </table>
+                              </div>
+                        </div>
+                    </div>
+
+                <!-- <div class="row pb-2">
+                    <div class="d-flex justify-content-center">
+                      <h3><b>Member&nbsp;Details</b></h3>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <div class="">
+                            <button type="button" class="form-control btn-green" (click)="addMember()">Add Member</button>
+                        </div>
+                    </div>
+                  </div> -->
+                  <div class="row d-flex pb-2">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4 justify-content-center">
+                        <h3><b>Member&nbsp;Details</b></h3>
+                    </div>
+                    <div class="col-md-4 justify-content-end d-flex">
+                        <div class="col-md-6"></div>
+                        <div class="col-md-6 col-xs-6">
+                            <button type="button" class="form-control btn-green" (click)="addMember()">Add Member</button>
+                        </div>
+                    </div>
+                  </div>
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label for="name">Name <sup>*</sup></label>
+                        <input type="text" class="form-control" id="name" required [(ngModel)]="model.name" name="name" maxlength="50" placeholder="Enter Name" autocomplete="off" [disabled]="disableInput">
+                    </div>
+                
+                    <div class="form-group col-sm-4">
+                        <label for="surname">Sur Name <sup>*</sup></label>
+                        <!-- <input type="text" class="form-control" id="surname" required [(ngModel)]="model.surname" name="surname" placeholder="Enter Sur Name" autocomplete="off"> -->
+
+                        <!-- <label for="surname" class="control-label mt_zerosix text-right">Select Surname
+                            Name<sup>*</sup>
+                          </label> -->
+                          <input autocomplete="off" type="text" class='select-option form-control' required name="surname" maxlength="50"
+                              [(ngModel)]="model.surname" #surname="ngModel" id="surname" list="Surnames" [disabled]="disableInput"
+                              placeholder="Select Sur name" (blur)="surnameChange(model)">
+                            <datalist id="Surnames">
+                              <!-- <option [ngValue]="undefined" disabled selected>Select Surname</option> -->
+                              <option class='option' *ngFor="let s of Surnames" [ngValue]="s">{{s.Surname}}</option>
+                            </datalist>
+
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="name">Gotram</label>
+                        <input type="text" class="form-control" id="gotram" disabled [(ngModel)]="model.gotram" name="gotram" maxlength="50" autocomplete="off">
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="name">Nick Name</label>
+                        <input type="text" class="form-control" id="nickname" required [(ngModel)]="model.nickname" name="nickname" maxlength="50" placeholder="Enter Nick Name"
+                        [disabled]="disableInput" autocomplete="off">
+                    </div>
+
+                    <div class="form-group col-sm-2">
+                        <label for="name">Date&nbsp;of&nbsp;Birth <sup>*</sup></label>
+                        <input type="date" class="form-control" id="dob" required [(ngModel)]="model.dob" name="dob" (blur)="DOBChange(model)" autocomplete="off" [disabled]="disableInput">
+                    </div>
+
+                    <div class="form-group col-sm-2">
+                        <label for="name">Age <sup>*</sup></label>
+                        <input type="text" class="form-control" id="age" required [(ngModel)]="model.age" name="age" (keypress)="keynumber($event)" 
+                        maxlength="3" placeholder="Enter age" autocomplete="off" [disabled]="disableInput">
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="name">Blood&nbsp;Group <sup>*</sup></label>
+                        <!-- <input type="text" class="form-control" id="bloodgroup" required [(ngModel)]="model.bloodgroup" name="bloodgroup" placeholder="Enter Blood Group" autocomplete="off"> -->
+                    
+                        <select class="form-select" aria-label="Default select example" id="bloodgroup" required [(ngModel)]="model.bloodgroup" name="bloodgroup"
+                            [disabled]="disableInput">
+                            <!-- <option selected>Select Blood group</option> -->
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                          </select>
+
+                    </div>
+            
+                    <div class="form-group col-sm-4">
+                        <label for="address1">Address1</label>
+                        <input type="text" class="form-control" id="address1" [(ngModel)]="model.address1" name="address1" placeholder="Enter Address1"
+                            maxlength="100" autocomplete="off">
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="address2">Address2</label>
+                        <input type="text" class="form-control" id="address2" [(ngModel)]="model.address2" name="address2" 
+                            maxlength="100" placeholder="Enter Address2" autocomplete="off">
+                    </div>
+                    
+                    <div class="form-group col-sm-4">
+                        <label for="area">Area <sup>*</sup></label>
+                        <!-- <input type="text" class="form-control" id="area" [(ngModel)]="model.area" name="area" (blur)="areaChange(model)" placeholder="Enter Area" autocomplete="off"> -->
+                        
+                        <input autocomplete="off" type="text" class='select-option form-control' required name="area" maxlength="50" (blur)="areaChange(model)"
+                        [(ngModel)]="model.area" #area="ngModel" id="area" list="AreasData"
+                        placeholder="Select Area">
+                      <datalist id="AreasData">
+                        <!-- <option [ngValue]="undefined" disabled selected>Select Area</option> -->
+                        <option class='option' *ngFor="let s of AreasData" [ngValue]="s">{{s.area}}</option>
+                      </datalist>
+
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="city">City</label>
+                        <input type="text" class="form-control" id="city" [(ngModel)]="model.city" name="city" placeholder="Enter City" 
+                        maxlength="50"autocomplete="off">
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="state">State</label>
+                        <input type="text" class="form-control" id="state" [(ngModel)]="model.state" name="state" placeholder="Enter State" 
+                            maxlength="50" autocomplete="off">
+                    </div>
+                    
+                    <div class="form-group col-sm-4">
+                        <label for="pincode">Pincode</label>
+                        <input type="text" class="form-control" id="pincode" [(ngModel)]="model.pincode" name="pincode" (keypress)="keynumber($event)"
+                             maxlength="7" placeholder="Enter Pincode" autocomplete="off">
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="native">Native&nbsp;Place <sup>*</sup></label>
+                        <input type="text" class="form-control" id="native" [(ngModel)]="model.native" name="native" placeholder="Enter Native" 
+                            maxlength="50"autocomplete="off">
+                    </div>
+                    
+                    <div class="form-group col-sm-4">
+                        <label for="district">District</label>
+                        <input type="text" class="form-control" id="district" [(ngModel)]="model.district" name="district" placeholder="Enter district"
+                            maxlength="50" autocomplete="off">
+                    </div>
+                    
+                    <div class="form-group col-sm-4">
+                        <label for="otherinfo">Other&nbsp;Information</label>
+                        <input type="text" class="form-control" id="otherinfo" [(ngModel)]="model.otherinfo" name="otherinfo" placeholder="Enter Other Information"
+                            maxlength="50" autocomplete="off">
+                    </div>
+
+                </div>
+        
+                <div class="row">
+            
+                    <!-- <div class="form-group col-sm-4">
+                        <label for="confrmtodonate">Confirm&nbsp;to&nbsp;Donate <sup>*</sup></label>
+                        <select class="form-select" aria-label="Default select example" [(ngModel)]="model.confrmtodonate" placeholder="Select" name="confrmtodonate" (change)="confrmtodonateSelect(model)">
+                            <option selected disabled>-- select --</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div> -->
+
+                    <div class="form-group col-sm-4">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" [(ngModel)]="model.email" name="email" placeholder="Enter Email" 
+                            maxlength="100"autocomplete="off">
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="submittedby">Data&nbsp;Submitted&nbsp;by</label>
+                        <select class="form-select" aria-label="Default select example" [(ngModel)]="model.submittedby" name="submittedby" (change)="submittedbySelect(model)">
+                            <option selected>-- select --</option>
+                            <option value="Self">Self</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </div>
+            
+                    <div class="form-group col-sm-4" *ngIf="model.submittedby == 'Others'">
+                        <label for="agentmobileno">Agent&nbsp;Mobile&nbsp;No</label>
+                        <input type="number" class="form-control" id="agentmobileno" [(ngModel)]="model.agentmobileno" name="agentmobileno" (keypress)="keynumber($event)" 
+                           maxlength="12" autocomplete="off">
+                    </div>
+
+                </div>
+                <div class="row">
+                    
+                    <div class="form-group col-sm-4">
+                        <label for="img">Upload Image</label>
+                        <input type="file" class="form-control" id="img" name="img" [(ngModel)]="model.image" (change)="attrexcelUpload($event)" data-max-size="2048"
+                            title = "Upload Invoice" accept="image/png, image/jpg, image/jpeg">
+                        <!-- accept="image/png, image/gif, image/jpeg" accept="image/*" -->
+                        <!-- <button type="button" class="btn btn-danger" (click)="clearimg()">clear img</button> -->
+                    </div>
+                    <div class="form-group col-sm-4" *ngIf="this.jsondata">
+                        <img style='display:block; width:100px;height:100px;' id='base64image'
+                            src="{{this.jsondata}}" />
+                            
+                    </div>
+                </div>
+
+                
+                <!-- style="padding-right: 0;" -->
+                <div class="row  d-flex justify-content-center pt-2">
+                    <!-- <div class="form-group col-sm-4">
+                        <label for="amount">Amount to Donate <sup>*</sup></label>
+                        <input type="text" class="form-control" id="amount" [(ngModel)]="model.amount" name="amount" (keypress)="keynumber($event)">
+                    </div> -->
+                    <div class="form-group col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" [(ngModel)]="model.termsandconditions" name="termsandconditions"><span>&nbsp;&nbsp;<i  class="text-dark">I am accepting to enter my data</i></span>
+                        <!-- <input type="checkbox" class="form-control" id="terms" [(ngModel)]="model.terms" name="terms"> -->
+                    </div>
+                    
+                    
+                </div>
+        
+                <div class="row d-flex justify-content-center">
+                    <!-- d-flex justify-content-center -->
+                    <div class="form-group col-sm-2">
+                        <!-- <button type="button" class="form-control btn-green mt-4" data-bs-toggle="modal" data-bs-target="#viewdetails" [disabled]="add_disable(model)">Submit</button> -->
+                        <button type="button" class="form-control btn-green mt-4" (click)="Besumbit(this.model)">Submit</button>
+                        <!-- <button type="submit" class="form-control btn-green mt-4" [disabled]="add_disable(model)">Submit</button> -->
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <button type="button" class="form-control btn btn-danger mt-4" (click)="Clear()">Clear</button>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------<-- Add Member --<--------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+              <!-- Add Member -->
+            <div class="row" *ngIf="detailform2 == true">
+                <div class="form2">
+
+                <div class="row pb-2">
+                    <!-- <div class="d-flex justify-content-center"> -->
+                    <div class="d-flex justify-content-center">
+                      <h3><b>Secoundary&nbsp;Member&nbsp;Details</b></h3>
+                    </div>
+                    <!-- <div class="text-end col-sm-2">
+                        <button type="button" class="form-control btn-green mt-4" (click)="addMember()">Add Member</button>
+                    </div> -->
+                  </div>
+                <div class="row">
+                    
+                    <div class="form-group col-sm-4">
+                        <label for="relationship">Relationship <sup>*</sup></label>
+                        <!-- <input autocomplete="off" type="text" class='select-option form-control' required name="relationship" maxlength="50"
+                            [(ngModel)]="model2.relationship" #relationship="ngModel" id="relationship" list="relationList"
+                            placeholder="Select relationship">
+                        <datalist id="relationList">
+                            <option class='option' *ngFor="let s of relationList" [ngValue]="s">{{s.relationship}}</option>
+                        </datalist> -->
+                        <select class="form-select" aria-label="Default select example" id="relationship" required [(ngModel)]="model2.relationship" name="relationship"
+                        [disabled]="disableInput2">
+                            <option value="Husband">Husband</option>
+                            <option value="Wife">Wife</option>
+                            <option value="Father">Father</option>
+                            <option value="Mother">Mother</option>
+                            <option value="Son">Son</option>
+                            <option value="Daughter">Daughter</option>
+                            <option value="Brother">Brother</option>
+                            <option value="Sister">Sister</option>
+                          </select>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="name">Name <sup>*</sup></label>
+                        <input type="text" class="form-control" id="name" required [(ngModel)]="model2.name" name="name" maxlength="50" placeholder="Enter Name"
+                        [disabled]="disableInput2" autocomplete="off">
+                    </div>
+                
+                    <div class="form-group col-sm-4">
+                        <label for="surname">Sur Name <sup>*</sup></label>
+                        <!-- <input type="text" class="form-control" id="surname" required [(ngModel)]="model.surname" name="surname" placeholder="Enter Sur Name" autocomplete="off"> -->
+
+                        <!-- <label for="surname" class="control-label mt_zerosix text-right">Select Surname
+                            Name<sup>*</sup>
+                          </label> -->
+                          <input autocomplete="off" type="text" class='select-option form-control' required name="surname" maxlength="50"
+                              [(ngModel)]="model2.surname" #surname="ngModel" id="surname" list="Surnames" 
+                              placeholder="Select Sur name" (blur)="surnameChange(model2)" [disabled]="disableInput2">
+                            <datalist id="Surnames">
+                              <!-- <option [ngValue]="undefined" disabled selected>Select Surname</option> -->
+                              <option class='option' *ngFor="let s of Surnames" [ngValue]="s">{{s.Surname}}</option>
+                            </datalist>
+
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="name">Gotram</label>
+                        <input type="text" class="form-control" id="gotram" disabled [(ngModel)]="model2.gotram" name="gotram" maxlength="50" autocomplete="off">
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="name">Nick Name</label>
+                        <input type="text" class="form-control" id="nickname" required [(ngModel)]="model2.nickname" name="nickname" maxlength="50" 
+                        [disabled]="disableInput2" placeholder="Enter Nick Name"
+                         autocomplete="off">
+                    </div>
+
+                    <div class="form-group col-sm-2">
+                        <label for="name">Date&nbsp;of&nbsp;Birth <sup>*</sup></label>
+                        <input type="date" class="form-control" id="dob" required [(ngModel)]="model2.dob" name="dob" (blur)="DOBChange(model2)" autocomplete="off"
+                        [disabled]="disableInput2">
+                    </div>
+
+                    <div class="form-group col-sm-2">
+                        <label for="name">Age <sup>*</sup></label>
+                        <input type="text" class="form-control" id="age" required [(ngModel)]="model2.age" name="age" (keypress)="keynumber($event)" 
+                        maxlength="3" placeholder="Enter age" autocomplete="off" [disabled]="disableInput2">
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="name">Blood&nbsp;Group <sup>*</sup></label>
+                        <!-- <input type="text" class="form-control" id="bloodgroup" required [(ngModel)]="model.bloodgroup" name="bloodgroup" placeholder="Enter Blood Group" autocomplete="off"> -->
+                    
+                        <select class="form-select" aria-label="Default select example" id="bloodgroup" required [(ngModel)]="model2.bloodgroup" name="bloodgroup"
+                        [disabled]="disableInput2">
+                            <!-- <option selected>Select Blood group</option> -->
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                          </select>
+
+                    </div>
+
+                    
+                    <div class="form-group col-sm-4">
+                        <label for="mobileno2">Alt&nbsp;Number</label>
+                        <input type="text" class="form-control" id="mobileno2" [(ngModel)]="model2.mobileno2" name="mobileno2" placeholder="Enter Mobile number" (keypress)="keynumber($event)" autocomplete="off" 
+                        maxlength="12" #mobtxt>
+                    </div>
+            
+                    <div class="form-group col-sm-4">
+                        <label for="address1">Address1</label>
+                        <input type="text" class="form-control" id="address1" [(ngModel)]="model2.address1" name="address1" placeholder="Enter Address1"
+                            maxlength="100" autocomplete="off">
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="address2">Address2</label>
+                        <input type="text" class="form-control" id="address2" [(ngModel)]="model2.address2" name="address2" 
+                            maxlength="100" placeholder="Enter Address2" autocomplete="off">
+                    </div>
+                    
+                    <div class="form-group col-sm-4">
+                        <label for="area">Area <sup>*</sup></label>
+                        <!-- <input type="text" class="form-control" id="area" [(ngModel)]="model.area" name="area" (blur)="areaChange(model)" placeholder="Enter Area" autocomplete="off"> -->
+                        
+                        <input autocomplete="off" type="text" class='select-option form-control' required name="area" maxlength="50" (blur)="areaChange(model2)"
+                        [(ngModel)]="model2.area" #area="ngModel" id="area" list="AreasData"
+                        placeholder="Select Area">
+                      <datalist id="AreasData">
+                        <!-- <option [ngValue]="undefined" disabled selected>Select Area</option> -->
+                        <option class='option' *ngFor="let s of AreasData" [ngValue]="s">{{s.area}}</option>
+                      </datalist>
+
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="city">City</label>
+                        <input type="text" class="form-control" id="city" [(ngModel)]="model2.city" name="city" placeholder="Enter City" 
+                        maxlength="50"autocomplete="off">
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="state">State</label>
+                        <input type="text" class="form-control" id="state" [(ngModel)]="model2.state" name="state" placeholder="Enter State" 
+                            maxlength="50" autocomplete="off">
+                    </div>
+                    
+                    <div class="form-group col-sm-4">
+                        <label for="pincode">Pincode</label>
+                        <input type="text" class="form-control" id="pincode" [(ngModel)]="model2.pincode" name="pincode" (keypress)="keynumber($event)"
+                             maxlength="7" placeholder="Enter Pincode" autocomplete="off">
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="native">Native&nbsp;Place <sup>*</sup></label>
+                        <input type="text" class="form-control" id="native" [(ngModel)]="model2.native" name="native" placeholder="Enter Native" 
+                            maxlength="50"autocomplete="off">
+                    </div>
+                    
+                    <div class="form-group col-sm-4">
+                        <label for="district">District</label>
+                        <input type="text" class="form-control" id="district" [(ngModel)]="model2.district" name="district" placeholder="Enter district"
+                            maxlength="50" autocomplete="off">
+                    </div>
+                    
+                    <div class="form-group col-sm-4">
+                        <label for="otherinfo">Other&nbsp;Information</label>
+                        <input type="text" class="form-control" id="otherinfo" [(ngModel)]="model2.otherinfo" name="otherinfo" placeholder="Enter Other Information"
+                            maxlength="50" autocomplete="off">
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" [(ngModel)]="model2.email" name="email" placeholder="Enter Email" 
+                            maxlength="100"autocomplete="off">
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="submittedby">Data&nbsp;Submitted&nbsp;by</label>
+                        <select class="form-select" aria-label="Default select example" [(ngModel)]="model2.submittedby" name="submittedby" (change)="submittedbySelect(model2)">
+                            <option selected>-- select --</option>
+                            <option value="Self">Self</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-sm-4" *ngIf="model2.submittedby == 'Others'">
+                        <label for="agentmobileno">Agent&nbsp;Mobile&nbsp;No</label>
+                        <input type="number" class="form-control" id="agentmobileno" [(ngModel)]="model2.agentmobileno" name="agentmobileno" (keypress)="keynumber($event)" 
+                           maxlength="12" autocomplete="off">
+                    </div>
+            
+
+                </div>
+                
+                <div class="row">
+                    
+                    <div class="form-group col-sm-4">
+                        <label for="img">Upload Image</label>
+                        <input type="file" class="form-control" id="img" name="img" [(ngModel)]="model2.image" (change)="attrexcelUpload($event)" data-max-size="2048"
+                            title = "Upload Invoice" accept="image/png, image/jpg, image/jpeg">
+                        <!-- accept="image/png, image/gif, image/jpeg" accept="image/*" -->
+                        <!-- <button type="button" class="btn btn-danger" (click)="clearimg()">clear img</button> -->
+                    </div>
+                    <div class="form-group col-sm-4" *ngIf="this.jsondata2">
+                        <img style='display:block; width:100px;height:100px;' id='base64image'
+                            src="{{this.jsondata2}}" />
+                            
+                    </div>
+                </div>
+
+                
+                <!-- style="padding-right: 0;" -->
+                <div class="row  d-flex justify-content-center pt-2">
+                    <!-- <div class="form-group col-sm-4">
+                        <label for="amount">Amount to Donate <sup>*</sup></label>
+                        <input type="text" class="form-control" id="amount" [(ngModel)]="model.amount" name="amount" (keypress)="keynumber($event)">
+                    </div> -->
+                    <div class="form-group col-sm-4">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="model2.termsandconditions" name="termsandconditions"><span>&nbsp;&nbsp;<i class="text-dark">I am accepting to enter my data</i></span>
+                        <!-- <input type="checkbox" class="form-control" id="terms" [(ngModel)]="model.terms" name="terms"> Accept Terms and Conditions-->
+                    </div>
+                    
+                    
+                </div>
+        
+                <div class="row d-flex justify-content-center">
+                    <!-- d-flex justify-content-center -->
+                    <div class="form-group col-sm-2">
+                        <button type="button" class="form-control btn btn-danger mt-4" (click)="gobacktoform()">Back</button>
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <!-- <button type="button" class="form-control btn-green mt-4" data-bs-toggle="modal" data-bs-target="#viewdetails" [disabled]="add_disable(model)">Submit</button> -->
+                        <button type="button" class="form-control btn-green mt-4" (click)="Besumbit(this.model2)">Submit</button>
+                        <!-- <button type="submit" class="form-control btn-green mt-4" [disabled]="add_disable(model)">Submit</button> -->
+                    </div>
+                    <div class="form-group col-sm-2" *ngIf="disableclear2">
+                        <button type="button" class="form-control btn btn-danger mt-4" (click)="Clear2()">Clear</button>
+                    </div>
+                </div>
+              </div>
+            </div>
+      
+            </div>
+            
+          </form>
+    </div>
+    
+    
+</div>
+
+
+
+<!-- //// -->
+<div class="modal fade" id="viewdetails" aria-hidden="true" aria-labelledby="viewdetailsLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="viewdetailsLabel">Preview</h5>
+          <button type="button" class="btn-close text-light" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid">
+                <div class="row">
+                    
+                    <div class="row">
+                        <p><span class="sidehead">Mobile&nbsp;No</span><span class="sideheadvales">:&nbsp;{{ nmodel.mobileno }}</span></p>
+                        <p *ngIf="detailform2"><span class="sidehead">Relationship</span><span class="sideheadvales">:&nbsp;{{ nmodel.relationship }}</span></p>
+                        <p><span class="sidehead">Name</span><span class="sideheadvales">:&nbsp;{{ nmodel.name }}</span></p>
+                        <p><span class="sidehead">Sur&nbsp;Name</span><span class="sideheadvales">:&nbsp;{{ nmodel.surname }}</span></p>
+                        <p><span class="sidehead">Gotram</span><span class="sideheadvales">:&nbsp;{{ nmodel.gotram }}</span></p>
+                        <p><span class="sidehead">Nickname</span><span class="sideheadvales">:&nbsp;{{ nmodel.nickname }}</span></p>
+                        <p><span class="sidehead">Date&nbsp;of&nbsp;Birth</span><span class="sideheadvales">:&nbsp;{{ nmodel.dob | date:'dd-MM-yyyy'}}</span></p>
+                        <p><span class="sidehead">Blood&nbsp;Group</span><span class="sideheadvales">:&nbsp;{{ nmodel.bloodgroup }}</span></p>
+                        <p><span class="sidehead">Address1</span><span class="sideheadvales">:&nbsp;{{ nmodel.address1 }}</span></p>
+                        <p><span class="sidehead">Address2</span><span class="sideheadvales">:&nbsp;{{ nmodel.address2 }}</span></p>
+                        <p><span class="sidehead">Area</span><span class="sideheadvales">:&nbsp;{{ nmodel.area }}</span></p>
+                        <p><span class="sidehead">City</span><span class="sideheadvales">:&nbsp;{{ nmodel.city }}</span></p>
+                        <p><span class="sidehead">State</span><span class="sideheadvales">:&nbsp;{{ nmodel.state }}</span></p>
+                        <p><span class="sidehead">Pincode</span><span class="sideheadvales">:&nbsp;{{ nmodel.pincode }}</span></p>
+                        <p><span class="sidehead">Native</span><span class="sideheadvales">:&nbsp;{{ nmodel.native }}</span></p>
+                        <p><span class="sidehead">District</span><span class="sideheadvales">:&nbsp;{{ nmodel.district }}</span></p>
+                        <p><span class="sidehead">Email</span><span class="sideheadvales">:&nbsp;{{ nmodel.email }}</span></p>
+                        <p><span class="sidehead">Other&nbsp;Info</span><span class="sideheadvales">:&nbsp;{{ nmodel.otherinfo }}</span></p>
+                        <!-- <p><span class="sidehead">Confirm&nbsp;to&nbsp;Donate</span><span class="sideheadvales">:&nbsp;{{ nmodel.confrmtodonate }}</span></p> -->
+                        <!-- <p><span class="sidehead">Amount&nbsp;to&nbsp;Donate</span><span class="sideheadvales">:&nbsp;{{ nmodel.amount }}</span></p> -->
+                        <p><span class="sidehead">Data&nbsp;Submitted&nbsp;by</span><span class="sideheadvales">:&nbsp;{{ nmodel.submittedby }}</span></p>
+                        <p><span class="sidehead">Agent&nbsp;Mobile&nbsp;No</span><span class="sideheadvales">:&nbsp;{{ nmodel.agentmobileno }}</span></p>
+                    </div>
+         
+                        <!-- <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 sidehead">
+                            <p>Mobile&nbsp;No</p>
+                            <p>Name</p>
+                            <p>Sur&nbsp;Name</p>
+                            <p>Address</p>
+                            <p>Email</p>
+                            <p>Other&nbsp;Info</p>
+                            <p>Confirm&nbsp;to&nbsp;donate</p>
+                            <p>Amount&nbsp;to&nbsp;donate</p>
+                            <p>Data&nbsp;Submitted&nbsp;by</p>
+                            <p>Agent&nbsp;Mobile&nbsp;No</p>
+                        </div>
+                        <div class="col-md-8 col-lg-8 col-sm-8 col-xs-8 sideheadvales">
+                            <p>:&nbsp;{{ model.mobileno }}</p>
+                            <p>:&nbsp;{{ model.name }}</p>
+                            <p>:&nbsp;{{ model.surname }}</p>
+                            <p>:&nbsp;{{ model.address }}</p>
+                            <p>:&nbsp;{{ model.email }}</p>
+                            <p>:&nbsp;{{ model.otherinfo }}</p>
+                            <p>:&nbsp;{{ model.confrmtodonate }}</p>
+                            <p>:&nbsp;{{ model.amount }}</p>
+                            <p>:&nbsp;{{ model.submittedby }}</p>
+                            <p>:&nbsp;{{ model.agentmobileno }}</p>
+                        </div> -->
+
+                    
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+
+            <div class="row d-flex justify-content-end">
+                <div class="form-group col-6">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="modalclose">Cancel</button>
+                </div>
+                <div class="form-group col-6">                    
+                    <button type="button" class="btn btn-green" data-bs-dismiss="modal" (click)="Submit(this.model)">Confirm</button>
+                </div>
+            </div>
+           <!-- <button type="button" class="form-control btn-green mt-4" (click)="Submit()">Submit</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+
+  <!-- col-md-12 col-lg-12 col-sm-12 col-xs-12
+  col-md-6 col-lg-6 col-sm-12 col-xs-12
+  col-md-4 col-lg-4 col-sm-4 col-xs-4
+  col-md-8 col-lg-8 col-sm-8 col-xs-8 -->

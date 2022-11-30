@@ -1,0 +1,109 @@
+<section class="ftco-section">
+    <div class="container">
+        <!-- <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section">Login #07</h2>
+            </div>
+        </div> -->
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-10">
+                <div class="wrap d-md-flex">
+                    <div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
+                        <div class="text w-100">
+                            <h2>Welcome to login</h2>
+                            <!-- <p>Don't have an account?</p> -->
+                            <!-- <a href="#" class="btn btn-white btn-outline-white">Sign Up</a> -->
+                        </div>
+              </div>
+                    <div class="login-wrap p-4 p-lg-5">
+                  <div class="d-flex">
+                      <div class="w-100">
+                          <!-- <h3 class="mb-4">Sign In</h3> -->
+                      </div>
+                            <div class="w-100">
+                                <p class="social-media d-flex justify-content-end">
+                                    <a  class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a>
+                                    <a  class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a>
+                                </p>
+                            </div>
+                  </div>
+                  <!-- (ngSubmit)="onSubmit(loginForm)  #loginForm="ngForm""  -->
+                <form class="signin-form">
+                    <div class="form-group mb-3">
+                        <label class="label" for="username">Mobile&nbsp;number</label>
+                        <input type="text" class="form-control" placeholder="Enter Mobile no" id="username" name="username" [(ngModel)]="model.username" #username="ngModel" required>
+                    </div>
+                    
+                <!-- <div class="form-group">
+                  <button type="button" class="form-control btn btn-primary px-3" [disabled]="!model.username" (click)="sendOtp(model)">Send&nbsp;OTP</button>
+              </div> -->
+                <div class="form-group mb-3">
+                    <label class="label" for="password">Password</label>
+                  <input type="password" class="form-control" placeholder="Enter password" id="password" name="password" [(ngModel)]="model.password" #password="ngModel" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="form-control btn btn-primary submit px-3" [disabled]="!model.password || !model.username" (click)="onSubmit(model)">Sign In</button>
+                </div>
+                <!-- <div class="form-group d-md-flex">
+                    <div class="w-50 text-left">
+                    </div>
+                    <div class="w-50 text-md-right">
+                        <a href="#">Forgot Password?</a>
+                    </div>
+                </div> -->
+              </form>
+
+              <!-- <form #loginForm="ngForm">
+                <div class="mar_t_30">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mar_t_30">
+                    <div class="username">
+                      <mat-form-field>
+                        <input type="text" matInput required  id="userId" [(ngModel)]="loginData.userId"
+                          placeholder="Enter Email / Mobile" name="userId" #userId="ngModel" pattern="^[6-9][0-9]{9}$|^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" appEnterkey>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mar_t_20">
+                    <div class="user-login1111">
+                      <mat-form-field  style="width:275px !important;">
+                        <input [type]="show ? 'text' : 'password'"   matInput required  id="password" [(ngModel)]="loginData.password"
+                          placeholder="Enter Password" name="password" #password="ngModel" >
+                          <mat-icon matSuffix (click)="toggleShow($event)" *ngIf="loginData.password"><i *ngIf="!show" class="fa fa-eye eye"  ></i><i *ngIf="show" class="fa fa-eye-slash eye" ></i></mat-icon>
+                        
+                      </mat-form-field>
+                    </div>
+                    <a tabindex="5" class="forgot-password" (click)="gotoForgotPassword('2')">Forgot Your Password?</a>
+                  </div>
+
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mar_t_30">
+                    <div class="text-center">
+                      <button type="submit" [disabled]="!loginForm.valid" class="login_acunt" (click)="gotoLogin()">SUBMIT</button>
+                    </div>
+                  </div>
+
+                  <div class="alert alert-dismissible alert-danger" *ngIf="displaMsg==true">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Please check your credentials!</strong>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mar_t_30">
+                    <div class="text-center">
+                      <p>New here? Create a New Account.</p>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="text-center">
+                      <button type="submit" id="create-account-login" value="Create a new account" (click)="gotoRegister()">CREATE
+                        AN ACCOUNT</button>
+                    </div>
+                  </div>
+                </div>
+              </form> -->
+
+            </div>
+          </div>
+            </div>
+        </div>
+    </div>
+</section>
